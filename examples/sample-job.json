@@ -1,0 +1,36 @@
+{
+  "company_details": {
+    "company_name": "Nexus Dynamics Inc.",
+    "role": "Senior Full-Stack Product Engineer",
+    "required_skills": [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "Distributed Systems",
+      "Redis Caching",
+      "PostgreSQL",
+      "WebSockets",
+      "System Design"
+    ],
+    "required_experience": "4+ years of professional full-stack software development experience with high-throughput backend services and modern frontend architectures",
+    "required_qualification": "Bachelor's or Master's degree in Computer Science, Software Engineering, or equivalent practical industry experience",
+    "salary": "$140,000 - $175,000 USD / annum",
+    "role_description": "We are seeking an experienced Full-Stack Product Engineer to architect and scale our real-time collaborative enterprise platform. You will lead the development of asynchronous backend microservices in Python/FastAPI, implement real-time streaming audio and state synchronization over WebSockets, and build responsive interfaces in Next.js. You will collaborate closely with product managers, UX designers, and infrastructure teams to deliver high-reliability customer features.",
+    "employee_qualities": [
+      "Strong analytical reasoning and architectural clarity",
+      "User empathy and customer-centric product intuition",
+      "Clear technical communication under pressure",
+      "Collaborative problem-solving in cross-functional environments",
+      "Deep understanding of latency, throughput, and system reliability trade-offs"
+    ]
+  },
+  "interview_configuration": {
+    "base_time_seconds": 1800,
+    "extended_time_seconds": 2700,
+    "panel_size_target": 3,
+    "enable_canvas_evaluation": true,
+    "tts_engine": "elevenlabs",
+    "stt_engine": "elevenlabs_scribe"
+  }
+}

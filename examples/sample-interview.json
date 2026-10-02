@@ -1,0 +1,135 @@
+{
+  "interview_id": "intv_2026_09a8f4c21",
+  "job_id": "job_nexus_fspe_01",
+  "application_id": "app_alexchen_001",
+  "candidate_name": "Alex Chen",
+  "target_role": "Senior Full-Stack Product Engineer",
+  "lifecycle_state": {
+    "current_stage": "EVALUATION_COMPLETED",
+    "interview_phase": "Concluded",
+    "elapsed_time_seconds": 1940,
+    "base_time_seconds": 1800,
+    "extended_time_seconds": 2700,
+    "timer_started": true,
+    "report_ready": true
+  },
+  "panel_configuration": {
+    "panel_size": 3,
+    "members": [
+      {
+        "id": "member_hr_01",
+        "name": "Bella",
+        "role": "Behavioral and Culture Manager",
+        "seniority": "Senior Lead",
+        "persona_description": "Empathetic, structured, evaluating team collaboration, conflict resolution, and work ethic.",
+        "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+        "voice_name": "Bella (American, Bright & Warm)"
+      },
+      {
+        "id": "member_tech_01",
+        "name": "Charlie",
+        "role": "Principal Systems Architect",
+        "seniority": "Principal",
+        "persona_description": "Methodical and analytical, deep diving into distributed concurrency, caching invalidation, and data consistency.",
+        "voice_id": "IKne3meq5aSn9XLyUdCD",
+        "voice_name": "Charlie (Australian, Deep & Confident)"
+      },
+      {
+        "id": "member_product_01",
+        "name": "Laura",
+        "role": "Group Product Manager",
+        "seniority": "Staff Lead",
+        "persona_description": "Pragmatic and outcome-driven, assessing feature trade-offs, customer friction, and commercial priorities.",
+        "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+        "voice_name": "Laura (American, Enthusiastic & Conversational)"
+      }
+    ]
+  },
+  "history": [
+    {
+      "turn_id": 1,
+      "stage": "START_STAGE",
+      "speaker": "Bella",
+      "speaker_role": "Behavioral and Culture Manager",
+      "question": "Welcome Alex! We are excited to speak with you today regarding the Senior Full-Stack Product Engineer role at Nexus Dynamics. To kick things off, could you share a brief overview of your background and what motivated you to pursue this role?",
+      "candidate_answer": "Thank you Bella! I have spent the last five years building high-throughput asynchronous backend services in Python and FastAPI, coupled with modern Next.js frontend interfaces. At Aura Cloud Platforms, I led our real-time collaboration pipeline and scalable caching infrastructure. I am passionate about Nexus Dynamics because of your mission to solve complex distributed systems problems while delivering friction-free developer tools.",
+      "input_method": "voice",
+      "duration_seconds": 24,
+      "evaluation_notes": "Candidate established clear background, aligned experience with role requirements, and communicated clearly."
+    },
+    {
+      "turn_id": 2,
+      "stage": "NORMAL_STAGE",
+      "speaker": "Charlie",
+      "speaker_role": "Principal Systems Architect",
+      "question": "In your background at Aura, you mentioned scaling a Redis caching layer to handle high peak loads. How do you handle cache invalidation and stampede prevention when high-traffic read-heavy keys expire simultaneously?",
+      "candidate_answer": "To prevent cache stampedes, we implemented probabilistic early expiration with mutex locks on key refresh. If multiple worker threads detect an expiring key, only one acquires the distributed lock to fetch fresh data from the database while other requests continue to receive the slightly stale cached value for a few milliseconds. We also combined this with write-through updates for critical transactions.",
+      "input_method": "voice",
+      "duration_seconds": 38,
+      "evaluation_notes": "Strong grasp of cache stampede mitigation, distributed locking mechanisms, and stale-while-revalidate concepts."
+    },
+    {
+      "turn_id": 3,
+      "stage": "NORMAL_STAGE",
+      "speaker": "Laura",
+      "speaker_role": "Group Product Manager",
+      "question": "That technical approach is sound, Alex. However, in our payment checkout flow, returning slightly stale cached data could result in a customer seeing an old invoice balance or attempting a double payment. How would you adjust your caching strategy to safeguard the customer checkout experience?",
+      "candidate_answer": "For sensitive domains like billing and checkout, we strictly bypass eventual consistency caching. We route payment queries directly to primary database reads with row-level transactional locking, ensuring idempotent payment intent tokens. We reserve caching for non-financial read-heavy catalogs where brief eventual consistency carries zero financial risk.",
+      "input_method": "voice",
+      "duration_seconds": 41,
+      "evaluation_notes": "Adapted smoothly from pure technical caching to customer payment safety and transactional integrity."
+    }
+  ],
+  "canvas_interaction": {
+    "triggered": true,
+    "question": "Please sketch the architectural topology for a real-time event streaming pipeline that ingests 50,000 WebSocket connections with Redis and worker pools.",
+    "submitted": true,
+    "vision_analysis": {
+      "components": [
+        "Client WebSocket Connection Pool",
+        "Load Balancer / Reverse Proxy (Nginx)",
+        "FastAPI Asynchronous Gateway Nodes",
+        "Redis Pub/Sub & Stream Cluster",
+        "Worker Ingestion Pool",
+        "PostgreSQL Sharded Datastore"
+      ],
+      "relationships": [
+        "Bidirectional WebSocket transport from client pool to FastAPI nodes",
+        "FastAPI nodes publish event payloads to Redis Stream",
+        "Worker pools consume from consumer groups in parallel",
+        "Processed states persisted asynchronously to PostgreSQL cluster"
+      ],
+      "design_notes": "Well-structured distributed architecture with decoupled ingestion and processing layers. Clear segregation of stateful connections from stateless workers.",
+      "suggestions": [
+        "Consider introducing a Dead Letter Queue (DLQ) for failed event processing",
+        "Explicitly specify connection draining strategies during horizontal node autoscaling"
+      ]
+    }
+  },
+  "final_evaluation_report": {
+    "overall_match_percentage": 94,
+    "job_role_match": 95,
+    "skills_match": 96,
+    "experience_match": 92,
+    "qualification_match": 95,
+    "technical_score": 96,
+    "communication_score": 92,
+    "problem_solving_score": 94,
+    "strengths": [
+      "Deep practical command of distributed systems, FastAPI concurrency, and cache synchronization",
+      "Demonstrated balance between technical scalability and user-facing transactional correctness",
+      "Concise, structured verbal communication with zero ambiguity in system design choices",
+      "Accurate architectural canvas topology with clearly delineated ingestion and processing boundaries"
+    ],
+    "concerns": [
+      "Minor omission of Dead Letter Queue (DLQ) topology in the initial canvas draft, subsequently resolved upon questioning"
+    ],
+    "hire_reasons": [
+      "Exceptional technical alignment with Nexus Dynamics core stack (FastAPI, Redis, Next.js, WebSockets)",
+      "Strong product intuition when evaluating technical failure modes against customer experience",
+      "Proven track record of high-throughput distributed engineering"
+    ],
+    "reject_reasons": [],
+    "final_recommendation": "Strong Hire"
+  }
+}

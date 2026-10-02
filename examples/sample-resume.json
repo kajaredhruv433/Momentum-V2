@@ -1,0 +1,64 @@
+{
+  "candidate_profile": {
+    "candidate_id": "cand_984729104",
+    "name": "Alex Chen",
+    "email": "alex.chen@example.com",
+    "phone": "+1 (555) 234-5678",
+    "location": "San Francisco, CA",
+    "linkedin": "https://linkedin.com/in/alexchen-dev",
+    "github": "https://github.com/alexchen-eng"
+  },
+  "summary": "Full-Stack Software Engineer with 5 years of hands-on experience designing distributed real-time web applications, asynchronous Python microservices, and modern React/Next.js frontend architectures. Proven track record of scaling high-throughput APIs to handle over 50,000 requests per second with sub-50ms p99 latency.",
+  "skills": {
+    "languages": ["Python", "TypeScript", "JavaScript", "SQL", "Go"],
+    "backend_frameworks": ["FastAPI", "Django", "Flask", "Node.js", "Express"],
+    "frontend_technologies": ["React", "Next.js", "Tailwind CSS", "Redux Toolkit", "WebSockets"],
+    "databases_and_caching": ["PostgreSQL", "MongoDB", "Redis", "Qdrant", "Elasticsearch"],
+    "devops_and_cloud": ["Docker", "Kubernetes", "AWS (ECS, S3, RDS)", "CI/CD (GitHub Actions)", "Prometheus", "Grafana"],
+    "system_design": ["Microservices Architecture", "Event-Driven Systems", "Caching Strategies", "WebSocket Streaming"]
+  },
+  "work_experience": [
+    {
+      "company": "Aura Cloud Platforms",
+      "position": "Senior Software Engineer",
+      "duration": "2023 - Present",
+      "location": "San Francisco, CA",
+      "highlights": [
+        "Architected and deployed asynchronous microservices using FastAPI and Redis, increasing overall platform throughput by 42% and reducing p99 latency from 180ms to 45ms.",
+        "Implemented real-time bidirectional WebSocket synchronization layer for collaborative document editing, serving 25,000+ concurrent active sessions.",
+        "Designed and executed automated multi-tier caching strategy across Redis and database read-replicas, cutting peak database load by 60%."
+      ]
+    },
+    {
+      "company": "Streamline Tech",
+      "position": "Software Engineer",
+      "duration": "2021 - 2023",
+      "location": "Austin, TX",
+      "highlights": [
+        "Developed full-stack features for customer billing and telemetry dashboard using Next.js, TypeScript, and Python REST APIs.",
+        "Created background task pipeline with Celery and Redis to process millions of webhook events daily with zero dropped transactions.",
+        "Authored comprehensive unit and integration test suites achieving 88% code coverage."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "institution": "University of California, Berkeley",
+      "graduation_year": "2021",
+      "gpa": "3.85 / 4.00"
+    }
+  ],
+  "featured_projects": [
+    {
+      "title": "HyperStream Real-Time Data Pipeline",
+      "tech_stack": ["Python", "FastAPI", "WebSockets", "Redis Streams", "Next.js"],
+      "description": "High-concurrency streaming telemetry pipeline ingesting 100k events/sec with live dashboard visualizations."
+    },
+    {
+      "title": "Distributed Task Orchestrator",
+      "tech_stack": ["Go", "Docker", "PostgreSQL", "gRPC"],
+      "description": "Fault-tolerant worker orchestration system with automatic leader election and heartbeats."
+    }
+  ]
+}
