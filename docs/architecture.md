@@ -167,8 +167,8 @@ flowchart TD
         KEY_POOL_22["Multi-Key Token Bucket Rotation (1-20 Keys per Provider)"]
 
         AGENT_GW --> TOKEN_ROUTER_22
-        TOKEN_ROUTER_22 -->|<= 7.5k Tokens| GROQ_LPU_22
-        TOKEN_ROUTER_22 -->|> 7.5k Tokens| GEMINI_22
+        TOKEN_ROUTER_22 -->|"<= 7.5k Tokens"| GROQ_LPU_22
+        TOKEN_ROUTER_22 -->|"> 7.5k Tokens"| GEMINI_22
         GROQ_LPU_22 <--> KEY_POOL_22
         GEMINI_22 <--> KEY_POOL_22
         AGENT_GW <--> CANVAS_VISION
@@ -189,27 +189,27 @@ flowchart TD
     end
 
     %% Cross-layer Signal Flows
-    MIC_22 -->|16kHz PCM Stream| WS_HUB
-    WS_HUB -->|Relay Stream| RTC_CTRL
-    RTC_CTRL -->|Transcribed Utterance| STATE_MACH
-    STATE_MACH -->|Trigger Turn Evaluation| AGENT_GW
+    MIC_22 -->|"16kHz PCM Stream"| WS_HUB
+    WS_HUB -->|"Relay Stream"| RTC_CTRL
+    RTC_CTRL -->|"Transcribed Utterance"| STATE_MACH
+    STATE_MACH -->|"Trigger Turn Evaluation"| AGENT_GW
     
-    AGENT_GW -->|Direct Spoken Question & Voice ID| EL_TTS_22
-    RTC_CTRL -->|MP3 Audio Stream| SPK_22
+    AGENT_GW -->|"Direct Spoken Question & Voice ID"| EL_TTS_22
+    RTC_CTRL -->|"MP3 Audio Stream"| SPK_22
     
-    CANVAS_22 -->|Base64 PNG Image| WS_HUB
-    WS_HUB -->|Image Data| CANVAS_VISION
-    CANVAS_VISION -->|Extracted Topology, Flows & Bottlenecks| AGENT_GW
+    CANVAS_22 -->|"Base64 PNG Image"| WS_HUB
+    WS_HUB -->|"Image Data"| CANVAS_VISION
+    CANVAS_VISION -->|"Extracted Topology, Flows & Bottlenecks"| AGENT_GW
 
-    STATE_MACH <-->|Persist Working State| MONGO_22
-    STATE_MACH <-->|Retrieve Grounding Context| QDRANT_22
+    STATE_MACH <-->|"Persist Working State"| MONGO_22
+    STATE_MACH <-->|"Retrieve Grounding Context"| QDRANT_22
     
-    SRV_CLOCK -->|1Hz Monotonic Broadcast| WS_HUB
-    WS_HUB -->|Clock Synchronization| TRANS_22
+    SRV_CLOCK -->|"1Hz Monotonic Broadcast"| WS_HUB
+    WS_HUB -->|"Clock Synchronization"| TRANS_22
 
-    STATE_MACH -->|Final Session Context| SCORECARD
-    GEMINI_22 -->|Evaluation Rubric Compilation| SCORECARD
-    SCORECARD -->|Save Completed Record| MONGO_22
+    STATE_MACH -->|"Final Session Context"| SCORECARD
+    GEMINI_22 -->|"Evaluation Rubric Compilation"| SCORECARD
+    SCORECARD -->|"Save Completed Record"| MONGO_22
 ```
 
 ---
@@ -222,33 +222,33 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    REQ_MODULE["Requesting Module (normal_stage, extended_stage, final_stage, report)"] -->|Prompt + Total Tokens| ROUTER["otheragent.py (LLM Router Logic)"]
+    REQ_MODULE["Requesting Module (normal_stage, extended_stage, final_stage, report)"] -->|"Prompt + Total Tokens"| ROUTER["otheragent.py (LLM Router Logic)"]
     
     ROUTER --> TOKEN_CHECK{"TOKEN CHECK: Prompt Tokens > 7.5k?"}
 
     %% Gemini Path (Long Context)
-    TOKEN_CHECK -->|Yes (> 7.5k)| GEMINI_RTR["geminirouter.py (Google AI Studio)"]
+    TOKEN_CHECK -->|"Yes (> 7.5k Tokens)"| GEMINI_RTR["geminirouter.py (Google AI Studio)"]
     subgraph GeminiPool ["Gemini Multi-Key Pool (1 to 20 Keys)"]
         GEMINI_KEYS["20 API KEYS (.env)"]
         GEMINI_LIMITS["Limit Checks: Day (20 Max Req), Per-Min (120k+ TPM), Concurrency"]
         GEMINI_KEYS --> GEMINI_LIMITS
     end
     GEMINI_RTR <--> GeminiPool
-    GEMINI_RTR -->|Selected Key + Prompt| GEMINI_RESP["geminiresponse.py (Gemini 2.5 Flash / 1.5 Flash)"]
-    GEMINI_RESP -->|Model Output| ROUTER
+    GEMINI_RTR -->|"Selected Key + Prompt"| GEMINI_RESP["geminiresponse.py (Gemini 2.5 Flash / 1.5 Flash)"]
+    GEMINI_RESP -->|"Model Output"| ROUTER
 
     %% Groq Path (Sub-Second Fast Turn)
-    TOKEN_CHECK -->|No (<= 7.5k)| GROQ_RTR["groqrouter.py (Groq Cloud LPU)"]
+    TOKEN_CHECK -->|"No (<= 7.5k Tokens)"| GROQ_RTR["groqrouter.py (Groq Cloud LPU)"]
     subgraph GroqPool ["Groq Multi-Key Pool (1 to 20 Keys)"]
         GROQ_KEYS["20 API KEYS (.env)"]
         GROQ_LIMITS["Limit Checks: Per-Min (8k TPM), Active Concurrency"]
         GROQ_KEYS --> GROQ_LIMITS
     end
     GROQ_RTR <--> GroqPool
-    GROQ_RTR -->|Selected Key + Prompt| GROQ_RESP["groqresponse.py (Llama-3.3-70b-versatile / Gpt-oss-120b)"]
-    GROQ_RESP -->|Model Output| ROUTER
+    GROQ_RTR -->|"Selected Key + Prompt"| GROQ_RESP["groqresponse.py (Llama-3.3-70b-versatile / Gpt-oss-120b)"]
+    GROQ_RESP -->|"Model Output"| ROUTER
 
-    ROUTER -->|Final Formatted Response| REQ_MODULE
+    ROUTER -->|"Final Formatted Response"| REQ_MODULE
 ```
 
 ---
